@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
+
 return [
 
     /*
@@ -65,7 +68,7 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+    'timezone' => 'Asia/Makassar',
 
     /*
     |--------------------------------------------------------------------------
@@ -123,4 +126,14 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'providers' => ServiceProvider::defaultProviders()->merge([
+        Spatie\Permission\PermissionServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+    ])->toArray(),
+
+    'aliases' => Facade::defaultAliases()->merge([
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+    ])->toArray()
 ];
