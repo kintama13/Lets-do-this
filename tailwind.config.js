@@ -8,12 +8,22 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-
+    darkMode: 'class',
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'light' : '#edf2f9',
+                'dark' : '#152e4d',
+                'darkood' : '#132944',
+                'darker' : '#12663f',
+                'primary' : '#4a148c',
+                'primary-dark' : '#070034',
+                'secondary' : '#ea8c30',
+                'secondary-dark' : '$c66d15',
+            }
         },
     },
 

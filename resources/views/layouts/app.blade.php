@@ -7,30 +7,37 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/png" href="{{ url(asset('storage/setting/favicon.png')) }}">
+
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{{ asset('js/theme.js') }}"></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <livewire:layout.navigation />
+    <body>
+        <div x-data="setup()" x-init="$refs.loading.classList.add('hidden');" :class="{'dark' : isDark}">
+            {{-- loading indicator --}}
+            <div x-ref="loading" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-100 dark:bg-darker">
+                <img src="/storage/setting/favicon.png" alt="" width="32" class="animate-spin">
+            </div>
+            <div class="flex w-screen h-screen overflow-hidden text-gray-900 bg-gray-100 dark:bg-darker dark:text-light">
+                @include('layouts.sidebar')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+                <div class="flex-1 overflow-hidden">
+                    <div class="flex flex-col h-screen">
+                        <header>
+                            @include('layouts.header')
+                        </header>
+
+                        <main class="flex-1 px-4 py-4 overflow-y-auto">
+                            {{  $slot   }}
+                        </main>
                     </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                </div>
+            </div>
         </div>
     </body>
 </html>
